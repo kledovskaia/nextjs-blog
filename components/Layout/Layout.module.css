@@ -1,0 +1,9 @@
+/* 1 vwem = 0.835vw */
+.container {
+  --vwem: 0.835vw;
+
+  width: 95vw;
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: calc(var(--vwem) * 3) 0 calc(var(--vwem) * 6);
+}
