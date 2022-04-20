@@ -1,4 +1,4 @@
-/* 1 vwem = 0.835vw */
+/* 1 vwem = 0.835vw = 1rem = 16px ( for 1920x1080 ) */
 .container {
   --vwem: 0.835vw;
 
