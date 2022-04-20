@@ -1,5 +1,12 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import Link from 'next/link';
+
+function ProfileImage() {
+  return (
+    <Image src="/images/profile.jpg" height={144} width={144} alt="Kseniia" />
+  );
+}
 
 export default function Home() {
   return (
