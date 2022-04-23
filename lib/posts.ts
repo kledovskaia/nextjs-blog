@@ -14,12 +14,12 @@ export function getSortedPostsData() {
     const fullPath = path.join(postDirectory, fileName);
     const fileContents = fs.readFileSync(fullPath, 'utf-8');
 
-    const matterResult = matter(fileContents);
+    const { data } = matter(fileContents);
 
     return {
       id,
-      ...matterResult.data,
-    };
+      ...data,
+    } as Post;
   });
 
   return allPostsData.sort(({ date: a }, { date: b }) =>
@@ -32,7 +32,7 @@ export function getAllPostsIds() {
   return fileNames.map((fileName) => fileName.replace(/.md$/, ''));
 }
 
-export async function getPostData(id) {
+export const getPostData = async (id: Post['id']): Promise<Post> => {
   const fullPath = path.join(postDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf-8');
   const { data, content } = matter(fileContents);
@@ -42,7 +42,7 @@ export async function getPostData(id) {
 
   return {
     id,
-    data,
+    ...data,
     contentHTML,
-  };
-}
+  } as Post;
+};

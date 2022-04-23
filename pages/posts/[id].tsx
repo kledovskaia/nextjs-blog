@@ -1,36 +1,37 @@
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Date from '../../components/Date/Date';
 import Layout from '../../components/Layout/Layout';
 import { getPostData, getAllPostsIds } from '../../lib/posts';
 import utilStyles from '../../styles/utils.module.css';
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const ids = getAllPostsIds();
   const paths = ids.map((id) => ({
     params: { id },
   }));
   return { paths, fallback: false };
-}
+};
 
-export async function getStaticProps({ params }) {
-  const post = await getPostData(params.id);
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const post = await getPostData(params.id.toString());
   return {
     props: {
       post,
     },
   };
-}
+};
 
 export default function Post({ post }) {
   return (
     <Layout>
       <Head>
-        <title>{post.data.title}</title>
+        <title>{post.title}</title>
       </Head>
       <article>
-        <h1 className={utilStyles.headingXl}>{post.data.title}</h1>
+        <h1 className={utilStyles.headingXl}>{post.title}</h1>
         <div className={utilStyles.lightText}>
-          <Date dateString={post.data.date} />
+          <Date dateString={post.date} />
         </div>
         <div dangerouslySetInnerHTML={{ __html: post.contentHTML }} />
       </article>
